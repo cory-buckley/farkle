@@ -50,8 +50,6 @@ function updateScores(){
     var percentage = (player.score / winTarget) * 100;
     document.getElementById(player.id).style.background = 'linear-gradient(90deg, rgba(171,0,255,1) ' + percentage + '%, rgba(255,255,255,1) ' + percentage + '%)';
   });
-  resetAudio();
-  updateAudio.play();
 }
 
 function onKeyPress(button) {
@@ -74,11 +72,15 @@ function onKeyPress(button) {
       players[activePlayer].score = Math.max(players[activePlayer].score - parseInt(workingNumber), 0);
       updateScores();
       changeActivePlayer();
+      resetAudio();
+      updateAudio.play();
       break;
     case 'Add':
       players[activePlayer].score = players[activePlayer].score + parseInt(workingNumber);
       updateScores();
       changeActivePlayer();
+      resetAudio();
+      updateAudio.play();
       break;
     case 'Farkle':
       changeActivePlayer();
