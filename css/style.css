@@ -122,3 +122,16 @@ svg {
 .active-player div {
   font-weight: bold;
 }
+
+.hg-standardBtn.dark-button {
+  background: #444444;
+  color: white;
+}
+
+.hg-standardBtn.dark-button.hg-activeButton {
+  background: #222222;
+}
+
+.remaining-score {
+  color: #efefef;
+}
