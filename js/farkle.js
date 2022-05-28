@@ -297,8 +297,11 @@ function onKeyPress(button) {
     case 'Farkle':
       recordState();
       changeActivePlayer();
-      resetAudio();
-      ouchAudio.play();
+      var randomVal = Math.random();
+      if (randomVal < 0.15) {
+        resetAudio();
+        ouchAudio.play();
+      }
       break;
     default:
       if(workingNumber == '0') {
