@@ -14,35 +14,13 @@ function resetAudio() {
   wipeAudio.currentTime = 0;
 }
 
-var winTarget = 10000;
-var workingNumber = '0';
-var players = [
-  { id: 'player1', name: 'Mike', score: 1000},
-  { id: 'player2', name: 'Chris',  score: 1000},
-  { id: 'player3', name: 'Cory',  score: 1000},
-  { id: 'player4', name: 'Marsha',  score: 1000},
-  { id: 'player5', name: 'Ana',  score: 1000},
-  { id: 'player6', name: 'Robert',  score: 1000},
-  { id: 'player7', name: 'Justin',  score: 1000},
-  { id: 'player8', name: 'Kevin',  score: 1000}
-];
-var activePlayer = 0;
+/* Create Player DOM Elements */
+var playerElementHTMLPart1 = '<div id="player'
+var playerElementHTMLPart2 = '" class="player-container-row" onclick="changeActivePlayer(';
+var playerElementHTMLPart3 = ')"><div class="player-container-row-player-details"><div class="player-container-row-player-details-name"></div><div class="player-container-row-player-details-score"></div></div></div>';
+var lastSpacer = document.getElementById('lastSpacer');
 
-var playHistory = new Stack();
-
-function recordState() {
-  playHistory.push({ playerIndex: activePlayer, score: players[activePlayer].score});
-}
-
-function undoAction() {
-  var lastState = playHistory.pop();
-  if (lastState != undefined) {
-    players[lastState.playerIndex].score = lastState.score;
-    updateScores();
-    changeActivePlayer(lastState.playerIndex);
-  }
-}
-
+/* Player Colors */
 var neonColors = [
   'rgba(39, 133, 255, 1)',
   'rgba(19, 244, 239, 1)',
@@ -52,6 +30,16 @@ var neonColors = [
   'rgba(255, 0, 92, 1)',
   'rgba(126, 39, 255, 1)'
 ];
+
+/* Game State Data */
+var winTarget = 10000;
+var workingNumber = '0';
+var players = JSON.parse(localStorage.getItem('players')) || [];
+if (players.length) {
+  startGame();
+}
+// players element schema: { id: 'player1', name: 'Name1',  score: 0},
+var activePlayer = 0;
 
 /* Randomize array in-place using Durstenfeld shuffle algorithm */
 function shuffleArray(array) {
@@ -77,17 +65,166 @@ function getRandomColor() {
 // assign player colors and names
 // the first 7 player colors will be randomly selected from a predetermined neon color palette
 // any remaining player colors will be randomly generated
-players.forEach((player, index) => {
-  if (index < neonColors.length) {
-    player.color = neonColors[index];
+function assignColorsAndNames() {
+  players.forEach((player, index) => {
+    if (index < neonColors.length) {
+      player.color = neonColors[index];
+    }
+    else {
+      player.color = 'rgba(' + getRandomColorNumber() + ', ' + getRandomColorNumber() + ', ' + getRandomColorNumber() + ', 1)';
+    }
+
+    document.querySelectorAll('#' + player.id + ' .player-container-row-player-details-name')[0].innerHTML = '<span>' + player.name + '</span>';
+  });
+}
+
+document.getElementById('newGamePlayerNumber').textContent = players.length + 1;
+
+function addNewPlayer() {
+  var playerName = document.getElementById('newGamePlayerName').value;
+  if (playerName != '' && playerName != null && playerName != undefined) {
+    document.getElementById('newGameAddPlayerButton').disabled = true;
+    document.getElementById('newGameStartGameButton').disabled = true;
+    players.push({ id: 'player' + (players.length + 1), name: playerName, score: 0});
+    document.getElementById('newGamePlayer').classList.add('animate__animated', 'animate__fadeOutLeft', 'animate__faster');
+    setTimeout(function() {
+      document.getElementById('newGamePlayerNumber').textContent = players.length + 1;
+      document.getElementById('newGamePlayerName').value = '';
+      document.getElementById('newGamePlayer').classList.remove('animate__animated', 'animate__fadeOutLeft', 'animate__faster');
+      document.getElementById('newGamePlayer').classList.add('animate__animated', 'animate__fadeInRight', 'animate__faster');
+      setTimeout(function() {
+        document.getElementById('newGamePlayer').classList.remove('animate__animated', 'animate__fadeInRight', 'animate__faster');
+        document.getElementById('newGameAddPlayerButton').disabled = false;
+        document.getElementById('newGameStartGameButton').disabled = false;
+      }, 500);
+    }, 500);
+  }
+}
+
+function purgePlayers() {
+  players = [];
+  playHistory = new Stack();
+  lastSpacer.parentNode.innerHTML = '<div id="lastSpacer" class="player-container-spacer"></div>';
+  lastSpacer = document.getElementById('lastSpacer');
+  document.getElementById('newGamePlayerNumber').textContent = 1;
+  document.getElementById('newGamePlayerName').value = '';
+  localStorage.setItem('players', JSON.stringify(players));
+}
+
+function createElementFromHTML(htmlString) {
+  var div = document.createElement('div');
+  div.innerHTML = htmlString.trim();
+
+  return div.firstChild;
+}
+
+function addPlayerElement(playerNumber) {
+  // add spacer
+  var spacer = document.createElement('div');
+  spacer.classList.add('player-container-spacer');
+  lastSpacer.parentNode.insertBefore(spacer, lastSpacer);
+
+  // add player element
+  var newPlayerHTMLString = playerElementHTMLPart1 + playerNumber + playerElementHTMLPart2 + (playerNumber - 1) + playerElementHTMLPart3;
+  var newPlayer = createElementFromHTML(newPlayerHTMLString);
+  lastSpacer.parentNode.insertBefore(newPlayer, lastSpacer);
+}
+
+function startGame(){
+  if (players.length) {
+    localStorage.setItem('players', JSON.stringify(players));
+    players.forEach((player, index) => {
+      addPlayerElement(index + 1);
+    });
+    assignColorsAndNames();
+    changeActivePlayer(0);
+    transitionMenu('new-game-screen', 'menu-screen');
+    hideModal('launchModal');
+  }
+}
+
+/* Play History */
+var playHistory = new Stack();
+
+function recordState() {
+  playHistory.push({ playerIndex: activePlayer, score: players[activePlayer].score});
+  document.querySelectorAll('.restart-button')[0].classList.remove('disabled');
+}
+
+function undoAction() {
+  var lastState = playHistory.pop();
+  if (lastState != undefined) {
+    players[lastState.playerIndex].score = lastState.score;
+    localStorage.setItem('players', JSON.stringify(players));
+    updateScores();
+    changeActivePlayer(lastState.playerIndex);
+  }
+
+  if(playHistory.size() == 0) {
+    document.querySelectorAll('.restart-button')[0].classList.add('disabled');
+  }
+}
+
+/* Animation Logic */
+var modalVisible = true;
+
+document.getElementById('launchModal').addEventListener('animationend', function() {
+  if(document.getElementById('launchModal').classList.contains('animate__fadeOutDown')) {
+    modalVisible = false;
+    document.getElementById('launchModal').style.visibility = 'hidden';
   }
   else {
-    player.color = 'rgba(' + getRandomColorNumber() + ', ' + getRandomColorNumber() + ', ' + getRandomColorNumber() + ', 1)';
+    modalVisible = true;
   }
-
-  document.querySelectorAll('#' + player.id + ' .player-container-row-player-details-name')[0].innerHTML = '<span>' + player.name + '</span>';
+  document.getElementById('launchModal').classList.remove('animate__animated', 'animate__fadeOutDown', 'animate__fadeInUp', 'animate__faster');
 });
 
+function toggleMenuButton() {
+  if (players.length > 0) {
+    for(menuButton of document.getElementsByClassName("close-menu-button")){
+      menuButton.style.display = 'block';
+    }
+  }
+}
+
+function showModal(modalId) {
+  toggleMenuButton();
+  checkResumeCapability();
+  document.getElementById(modalId).style.visibility = 'visible';
+  document.getElementById(modalId).classList.add('animate__animated', 'animate__fadeInUp', 'animate__faster');
+}
+
+function hideModal(modalId) {
+  toggleMenuButton();
+  document.getElementById(modalId).classList.add('animate__animated', 'animate__fadeOutDown', 'animate__faster');
+}
+
+function checkResumeCapability() {
+  if (players.length) {
+    document.getElementById('resumeButton').style.display = 'inline-block';
+    document.getElementById('closeMenuButton').style.display = 'inline-block';
+  }
+  else {
+    document.getElementById('resumeButton').style.display = 'none';
+    document.getElementById('closeMenuButton').style.display = 'none';
+  }
+}
+
+function transitionMenu(hideElement, showElement) {
+  document.getElementsByClassName(hideElement)[0].classList.remove('animate__animated', 'animate__fadeOutDown', 'animate__fadeInUp', 'animate__faster');
+  document.getElementsByClassName(showElement)[0].classList.remove('animate__animated', 'animate__fadeOutDown', 'animate__fadeInUp', 'animate__faster');
+
+  document.getElementsByClassName(hideElement)[0].classList.add('animate__animated', 'animate__fadeOutDown', 'animate__faster');
+  setTimeout(() => {
+    checkResumeCapability();
+    document.getElementsByClassName(hideElement)[0].style.display = 'none';
+    document.getElementsByClassName(showElement)[0].style.display = 'flex';
+    document.getElementsByClassName(showElement)[0].classList.add('animate__animated', 'animate__fadeInUp', 'animate__faster');
+    toggleMenuButton();
+  }, 500);
+}
+
+/* Game Logic */
 function changeActivePlayer(index) {
   if(index != undefined) {
     activePlayer = index;
@@ -101,12 +238,15 @@ function changeActivePlayer(index) {
     document.getElementById(player.id).classList.remove('animate__animated', 'animate__pulse', 'animate__faster');
   });
 
-  if (!isElementInScrollView(document.getElementById(players[activePlayer].id))) {
-    document.getElementById(players[activePlayer].id).previousElementSibling.scrollIntoView();
+  if (players[activePlayer]) {
+    if (!isElementInScrollView(document.getElementById(players[activePlayer].id))) {
+      document.getElementById(players[activePlayer].id).previousElementSibling.scrollIntoView();
+    }
+
+    document.getElementById(players[activePlayer].id).classList.add('active-player');
+    document.getElementById(players[activePlayer].id).classList.add('animate__animated', 'animate__pulse', 'animate__faster');
   }
 
-  document.getElementById(players[activePlayer].id).classList.add('active-player');
-  document.getElementById(players[activePlayer].id).classList.add('animate__animated', 'animate__pulse', 'animate__faster');
   workingNumber = 0;
   document.getElementsByClassName('score-calculator-working-number')[0].innerHTML = workingNumber;
   textFit(document.getElementsByClassName('score-calculator-working-number'));
@@ -139,6 +279,7 @@ function onKeyPress(button) {
     case 'Subtract':
       recordState();
       players[activePlayer].score = Math.max(players[activePlayer].score - parseInt(workingNumber), 0);
+      localStorage.setItem('players', JSON.stringify(players));
       updateScores();
       changeActivePlayer();
       resetAudio();
@@ -147,6 +288,7 @@ function onKeyPress(button) {
     case 'Add':
       recordState();
       players[activePlayer].score = Math.min(players[activePlayer].score + parseInt(workingNumber), winTarget);
+      localStorage.setItem('players', JSON.stringify(players));
       updateScores();
       changeActivePlayer();
       resetAudio();
@@ -207,13 +349,15 @@ function applyScrollMasks() {
 }
 
 function isElementInScrollView(el) {
-  var rect = el.getBoundingClientRect();
-  var elemTop = rect.top;
-  var elemBottom = rect.bottom;
+  if (el && playerContainerElement) {
+    var rect = el.getBoundingClientRect();
+    var elemTop = rect.top;
+    var elemBottom = rect.bottom;
 
-  // only completely visible elements return true
-  var isVisible = (elemTop >= playerContainerElement.scrollTop) && (elemBottom <= playerContainerElement.scrollTop + playerContainerElement.clientHeight);
-  return isVisible;
+    // only completely visible elements return true
+    var isVisible = (elemTop >= playerContainerElement.scrollTop) && (elemBottom <= playerContainerElement.scrollTop + playerContainerElement.clientHeight);
+    return isVisible;
+  }
 }
 
 playerContainerElement.addEventListener('scroll', () => {

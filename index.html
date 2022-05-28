@@ -21,17 +21,134 @@
   </head>
 
   <body>
-    <!--
     <div id="launchModal" class="modal">
       <div class="modal-contents">
-        Farkle
-        <button onclick="launchGame()">Play</button>
+        <div class="menu-screen">
+          <svg class="title-logo" version="1.1" viewBox="0 0 294 82" fill="#ffffff">
+            <g>
+              <path d="M37.3,5.1c5.7,0.4,9.6,1.1,11.5,2c2.3,1,3.5,2.9,3.5,5.8c0.6,7.3-0.5,14.2-3.5,20.6c-0.7,2.1-1.9,3.2-3.6,3.4
+                c-3.5,0.1-7.9-0.4-13.1-1.6L32,35.7c0.2,2.7,0.5,4.1,1,4.1h0.1c0.4,0,1.4-0.1,3-0.3c2.2,0,3.3,1.1,3.3,3.3
+                c-0.5,2.5-1.5,4.3-2.8,5.6c-0.9,1-1.9,1.6-3,1.8c0.3,6.6-0.5,12.7-2.3,18.1c-0.7,2-2,3.9-4,5.8c-2.4,1.7-4.9,2.6-7.4,2.8
+                c-2.2,0-4-1.9-5.6-5.6C11.6,65.6,9.6,59,8.2,51.7c-1.1-6.1-1.9-13.2-2.3-21.3c-0.2-6.6,0.4-12.1,2-16.6c1.3-1.9,6-4,13.9-6.3
+                C25.9,6.1,31.1,5.3,37.3,5.1z"/>
+              <path d="M82.6,12.2c2.1,0,4.5,0.9,7.4,2.6c2.4,2.2,4.2,5.6,5.3,10.1c0.8,2.7,1.3,6.8,1.5,12.4c0,5.6-0.5,12-1.6,19.1
+                c-1.3,6-3.5,10.2-6.6,12.7c-1.2,0.5-2.6,0.7-4,0.3c-2.9-0.6-5.4-2.1-7.5-4.5c-1.2-1.4-1.8-4.9-1.8-10.4c0-0.3,0.1-1.1,0.2-2.5
+                L75,52h-3.1c-0.2,0-0.3,0.1-0.3,0.3l0.8,6.8c0,3.5-0.7,5.7-2.2,6.6c-0.8,0.3-1.7,0.5-2.6,0.5c-4.1,0-7.7-1.3-10.7-3.9
+                c-1.1-1.1-2.1-5.5-3-13.2c-0.2-1.4-0.3-2.5-0.3-3.5c-0.4-6.6,0.6-13.5,3-20.6c0.7-2,1.7-3.7,3.1-5.1c3.4-3.2,7.6-5.4,12.5-6.7
+                C76.4,12.2,79.8,11.9,82.6,12.2z M71.1,39.9l0.5,0.3c3.8-0.5,5.8-1.3,5.8-2.5c0.4-1.7,0.4-3.6-0.2-5.8c-0.2-1.1-1-1.6-2.3-1.5
+                c-1.3,1-2.2,2.2-2.8,3.6C71.2,36.4,70.9,38.3,71.1,39.9z"/>
+              <path d="M132.2,7.4c8.8-0.3,13.5,3.7,14,12.1c0,4.5-2.1,9.1-6.2,13.9c-2.2,2.2-4.8,4.3-7.9,6.4c1.6,1.7,3.6,2.7,6,3.3
+                c4.1,0.4,6.4,1.3,7,2.8c1.6,3.2-0.7,10-6.7,20.4c-0.6,0.8-1.3,1-2.2,0.7c-2.7,0-5.9-2-9.7-5.9c-3-4-5.1-7.3-6.5-10.1v0.2
+                c0,1.3,0.2,4.7,0.7,10.3c0,3.1-2.2,4.7-6.5,4.9c-2,0-4.8-0.8-8.3-2.5c-5.3-3.3-7.6-13.3-6.9-29.7c0.7-8.6,1.4-13.8,2.1-15.5
+                c0.8-2.5,5.3-5.1,13.6-7.8C120.4,8.5,126.2,7.4,132.2,7.4z M121.1,34.8c6.4,0.7,8.6-1.7,6.5-7.1c-2.4-3.6-5.1-3.6-8.2,0.1
+                C118.5,30.7,119,33,121.1,34.8z"/>
+              <path d="M168.3,8.8c4.3,0.7,6.4,1.7,6.4,3c0.5,0.6,0.7,1.5,0.7,2.8c0,1.3-1.7,5.5-5,12.6c-1.2,2.7-1.9,5.2-2.2,7.6v0.2l0.1,0.3
+                c3.3-1.7,9-6.9,16.9-15.5c1.4-1.7,2.5-2.5,3.3-2.5h0.2c1.2,0,3.2,2.8,5.8,8.4c1,5.5,0.1,10.2-2.5,14.2c-2.2,2.5-4.2,4-5.8,4.5
+                c-2.3,0.8-4.7,1.2-7.3,1.2c-0.3,0.3-0.5,0.6-0.5,1c0,1.4,1.2,3.4,3.5,5.8c1.6,1.1,4.6,2,8.9,2.6c3,1.2,4.6,2.2,5,3
+                c0.7,0.5,0.9,1.5,0.8,2.8c0,4.3-3.1,7.5-9.4,9.6c-1,0.2-1.9,0.3-2.5,0.3c-2.6,0-5.6-2.4-8.9-7.3c-2.6-3.5-5.3-7.6-8.2-12.3
+                c2.2,8,3.3,13.6,3.2,16.7c-0.2,2.4-1,3.9-2.5,4.6c-0.7,0.4-1.8,0.5-3.3,0.5c-4.9-0.2-8.9-1.2-12.1-3c-1.7-1-2.7-6.5-3-16.3
+                c-0.4-6.2-0.5-13.1-0.4-20.9c-0.1-7,0.4-13,1.6-18c0-1.7,2.6-3.2,7.8-4.5C162.2,9.2,165.3,8.8,168.3,8.8z"/>
+              <path d="M216,11.1c3-0.1,4.6,1.7,4.8,5.3c1.3,13.8-0.1,24.8-4.2,33c3.4-1.3,5.1-1.9,5.1-1.8c4.8-1.1,8.5-1.7,11-1.7
+                c3.3,0.2,5.6,1.1,6.8,2.5c0.5,0.6,0.8,1.9,0.8,3.8c0.2,5.4-0.5,9.9-2.2,13.5c-1.4,1.7-3.4,2.6-5.9,3c-5.5,1-11,1.4-16.6,1
+                c-5.4,0-10-1.5-13.7-4.5c-1.8-3.8-2.5-8.8-2.3-15.1c0-19.2,0.7-30.2,2-32.8c0.7-2.1,1.7-3.5,3.1-4.1
+                C207.4,11.7,211.2,11.1,216,11.1z"/>
+              <path d="M271.2,15.4c3.2,0,7.3,0.8,12.3,2.3c1.4,0.6,2.4,1.5,2.9,2.6c1.1,6.3,0.5,12.3-1.8,18c-1.3,2.5-3.9,3.8-7.7,3.8h-1.8
+                c-2.7,0-5.5-0.6-8.5-1.8c-0.6-0.2-1-0.3-1.3-0.3c0,0.1-0.1,0.2-0.2,0.2c0.2,1.8,0.4,2.7,0.7,2.7h3.1c2.4,0,3.6,0.6,3.6,1.7
+                c0.1,0,0.2,0.2,0.2,0.6v0.3c0,2.6-1.7,4.8-5.1,6.5c-1.3,0.1-2,0.4-2,0.7c0.2,0.2,1.1,0.3,2.6,0.5c0.7,0,5-0.6,13.1-1.7
+                c2.4,0,4.1,0.8,5.1,2.4c1.8,2.4,2.6,4.9,2.6,7.6c0.1,2.8-0.8,5-2.6,6.5c-1.9,1.9-6.6,3.1-14.3,3.5c-4.2,0-8.8-0.5-14-1.5
+                c-1.8-0.4-4.1-0.9-6.7-1.5l-4.1-1.8c-0.6-0.4-1.1-1.5-1.5-3.3l-1.5-8.2c-0.6-3.1-1-7.2-1-12.3c-0.2-2.2-0.2-5.4,0.2-9.7
+                c0.8-7.3,1.9-11.3,3.3-12.1c3.6-2.5,8.2-4.2,13.8-5C263.4,15.6,266.9,15.4,271.2,15.4z"/>
+            </g>
+          </svg>
+          <button class="resume-button" id="resumeButton" onclick="hideModal('launchModal')">Resume</button>
+          <button onclick="purgePlayers(); transitionMenu('menu-screen', 'new-game-screen')">New Game</button>
+          <button onclick="transitionMenu('menu-screen', 'how-to-play-screen')">How to Play</button>
+        </div>
+        <div class="new-game-screen">
+          <div id="newGamePlayer">
+            <div class="new-game-player-text">
+              Enter the name of player&#160;<span class="new-game-player-number" id="newGamePlayerNumber"></span>
+            </div>
+            <input class="new-game-player-input" id="newGamePlayerName"></input>
+          </div>
+          <button id="newGameAddPlayerButton" onclick="addNewPlayer()">Add Player</button>
+          <button id="newGameStartGameButton" onclick="startGame()">Start Game</button>
+        </div>
+        <div class="how-to-play-screen">
+          <div class="how-to-play-header">
+            <div class="header-button">
+              <svg class="back-button" viewBox="0 0 24 24" fill="#ffffff" onclick="transitionMenu('how-to-play-screen', 'menu-screen')">
+                <path d="M2,12A10,10 0 0,1 12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12M18,11H10L13.5,7.5L12.08,6.08L6.16,12L12.08,17.92L13.5,16.5L10,13H18V11Z" />
+              </svg>
+            </div>
+            <h1>How to Play</h1>
+            <div class="header-button">
+              <svg class="close-menu-button" id="closeMenuButton" version="1.1" viewBox="0 0 752 752" fill="#ffffff" onclick="hideModal('launchModal')">
+                <path d="m214.98 238.66c-15.691 0-28.414 12.723-28.414 28.414 0 15.691 12.723 28.414 28.414 28.414h322.04c15.691 0 28.414-12.723 28.414-28.414 0-15.695-12.723-28.414-28.414-28.414zm0 108.92c-15.691 0-28.414 12.723-28.414 28.414s12.723 28.414 28.414 28.414h322.04c15.691 0 28.414-12.723 28.414-28.414 0-15.695-12.723-28.414-28.414-28.414zm0 108.92c-15.691 0-28.414 12.723-28.414 28.414 0 15.691 12.723 28.414 28.414 28.414h322.04c15.691 0 28.414-12.723 28.414-28.414 0-15.695-12.723-28.414-28.414-28.414z"/>
+              </svg>
+            </div>
+          </div>
+          <div class="instructions">
+            <p>
+              Farkle is like a family recipe for a popular dish: every family has their own unique take on it. Below you will find the basic rules of farkle along with Chris & Cory House Rules.
+            </p>
+            <h2>Base Rules</h2>
+            <h3 style="color: #68ff00;">Moderate Difficulty</h3>
+            <p>
+              The goal is to get to 10,000 points.
+            </p>
+            <img src="img/base-rules-score-key.svg">
+            <p>
+              A player must score with every roll, setting aside at least one scoring die out of each turn before re-rolling the remaining dice. If no dice on a roll can be scored it is a ‘Farkle’ which ends the player’s turn and the accumulated score from that turn is lost.
+            </p>
+            <p>
+              If all six dice eventually score, you may start rolling with all 6 again, keeping that turn's accumulated score. Players can choose to stop after all 6 dice score.
+            </p>
+            <p>
+              Within a turn scores cannot be combined across rolls to make bigger scores. <i>For example, if a player has scored 3-of-a-kind in 5’s on one roll, then rolls double 5’s in the next roll, the player cannot combine the 5’s to make a 5-of-a-kind.</i>
+            </p>
+            <p>
+              During a player's turn they may stop rolling at any time and receive the current accumulated score of the dice ending their turn. This score is then added to their total.
+            </p>
+            <p>
+              Once a player reaches a total score of 10,000 each remaining player is given one more turn to try and reach 10,000. After each player takes their final turn the player with the highest total score wins.
+            </p>
+            <h2>Chris & Cory House Rules</h2>
+            <h3 style="color: #ff005c;">Challenging</h3>
+            <p>
+              The goal is to get to 10,000 points or another agreed upon target score.
+            </p>
+            <img src="img/house-rules-score-key.svg">
+            <p>
+              A player must score with every roll, setting aside at least one scoring die out of each turn before re-rolling the remaining dice. If no dice on a roll can be scored it is a ‘Farkle’ which ends the player’s turn and the accumulated score from that turn is lost.
+            </p>
+            <p>
+              If all six dice eventually score, you <b>MUST</b> start rolling with all 6 again, building on this turn's accumulated score. Players cannot choose to stop after all 6 dice score.
+            </p>
+            <p>
+              Within a turn scores cannot be combined across rolls to make bigger scores. <i>For example, if a player has scored 100 by rolling a 1, then rolls two 1’s in the next roll, the player cannot combine the 1’s to make a score of 1000.</i>
+            </p>
+            <p>
+              During a player's turn, unless they have scored on all 6 dice, they may stop rolling at any time and receive the current accumulated score ending their turn. This turn's score is then added to the player's total score if they are on-the-board.
+            </p>
+            <h4>Getting On-the-Board</h4>
+            <p>
+              A player may only start adding points to their total score once they have accumulated a score of 650 or more during a single turn. If a player is unable to reach a score of 650 or more before they are On-the-Board it is a ‘Farkle’.
+            </p>
+            <h4>Piggybacking</h4>
+            <p>
+              The next player can choose to start a new roll OR they may choose to roll the previous player's remaining dice (the ones that have not been scored) to build on the accumulated score from the previous turn.
+            </p>
+            <p>
+              Once a player reaches an <b>EXACT</b> score of 10,000, or another agreed upon target score each remaining player is given one more turn to try and reach the target score. Players must reach the target score exactly otherwise it is a ‘Farkle’. After each player takes their final turn if only one player has been able to reach the target score they are the winner. If multple players reach the target score <b>EXACTLY</b> each player will be given one tie-breaking turn to see how many points they can accumulate before they ‘Farkle’. The player who accumulates the highest score is the winner.
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
-    </div>
-    -->
 
     <div class="title-container">
-      <svg class="restart-button" version="1.1" viewBox="0 0 752 752" fill="#444444" onclick="undoAction()">
+      <svg class="restart-button disabled" version="1.1" viewBox="0 0 752 752" onclick="undoAction()">
         <g>
           <path d="m379.32 419.57c1.8945 0 4.2617-0.47266 5.6836-1.4219l77.195-36.465c6.6289-3.3164 9.4727-11.367 6.1562-17.996l-3.3164-7.1055c-2.3672-4.7344-7.1055-7.5781-12.312-7.5781-1.8945 0-4.2617 0.47266-6.1562 1.4219l-57.777 26.992-27.469-57.305c-2.3672-4.7344-7.1055-7.5781-12.312-7.5781-1.8945 0-4.2617 0.47266-6.1562 1.4219l-7.1055 3.3164c-6.6289 3.3164-9.4727 11.367-6.1562 17.996l36.941 76.723c2.3672 4.2617 7.5742 7.5781 12.785 7.5781z"/>
           <path d="m559.28 338.59c-12.312-57.305-71.984-116.5-129.76-129.29-12.785-2.8398-25.574-4.2617-38.359-4.2617h-4.7344c-83.824 2.3672-155.34 66.773-165.28 150.6l-0.47266 1.8945h-21.312c-3.7891 0-6.1562 2.3672-7.1055 4.7344-1.4219 2.8398-2.3672 7.5781 0 12.312l37.887 44.516c4.2617 4.7344 9.9453 7.5781 15.629 7.5781s11.367-2.8398 15.629-7.5781l36.465-43.57s0.47266-0.47266 0.47266-0.47266c0.47266-0.47266 0.47266-0.47266 0.94531-0.94531 0 0 0.47266-0.47266 0.47266-0.47266 2.3672-4.2617 1.4219-8.9961 0-11.84-1.8945-3.3164-4.7344-5.2109-7.5781-5.2109h-23.207l0.47266-2.8398c10.418-57.777 58.25-99.453 116.97-101.35h4.7344 1.8945c66.301 0.94531 121.24 55.883 122.18 122.18 0.47266 33.152-12.312 64.879-35.52 88.559-23.68 23.68-54.934 36.938-88.559 36.938h-10.891c-6.6289 0-12.312 5.6836-12.312 12.312v24.152c0 6.6289 5.6836 12.312 12.312 12.312h11.84c52.094 0 100.87-23.207 133.55-63.461 32.688-41.195 45-94.234 33.633-146.8z"/>
@@ -73,85 +190,13 @@
             c0.8-7.3,1.9-11.3,3.3-12.1c3.6-2.5,8.2-4.2,13.8-5C263.4,15.6,266.9,15.4,271.2,15.4z"/>
         </g>
       </svg>
-      <svg class="menu-button" version="1.1" viewBox="0 0 752 752" fill="#444444">
+      <svg class="open-menu-button" version="1.1" viewBox="0 0 752 752" fill="#444444" onclick="showModal('launchModal')">
         <path d="m214.98 238.66c-15.691 0-28.414 12.723-28.414 28.414 0 15.691 12.723 28.414 28.414 28.414h322.04c15.691 0 28.414-12.723 28.414-28.414 0-15.695-12.723-28.414-28.414-28.414zm0 108.92c-15.691 0-28.414 12.723-28.414 28.414s12.723 28.414 28.414 28.414h322.04c15.691 0 28.414-12.723 28.414-28.414 0-15.695-12.723-28.414-28.414-28.414zm0 108.92c-15.691 0-28.414 12.723-28.414 28.414 0 15.691 12.723 28.414 28.414 28.414h322.04c15.691 0 28.414-12.723 28.414-28.414 0-15.695-12.723-28.414-28.414-28.414z"/>
       </svg>
     </div>
 
     <div class="player-container">
-      <div class="player-container-spacer"></div>
-
-      <div id="player1" class="player-container-row" onclick="changeActivePlayer(0)">
-        <div class="player-container-row-player-details">
-          <div class="player-container-row-player-details-name"></div>
-          <div class="player-container-row-player-details-score"></div>
-        </div>
-      </div>
-
-      <div class="player-container-spacer"></div>
-
-      <div id="player2" class="player-container-row" onclick="changeActivePlayer(1)">
-        <div class="player-container-row-player-details">
-          <div class="player-container-row-player-details-name"></div>
-          <div class="player-container-row-player-details-score"></div>
-        </div>
-      </div>
-
-      <div class="player-container-spacer"></div>
-
-      <div id="player3" class="player-container-row" onclick="changeActivePlayer(2)">
-        <div class="player-container-row-player-details">
-          <div class="player-container-row-player-details-name"></div>
-          <div class="player-container-row-player-details-score"></div>
-        </div>
-      </div>
-
-      <div class="player-container-spacer"></div>
-
-      <div id="player4" class="player-container-row" onclick="changeActivePlayer(3)">
-        <div class="player-container-row-player-details">
-          <div class="player-container-row-player-details-name"></div>
-          <div class="player-container-row-player-details-score"></div>
-        </div>
-      </div>
-
-      <div class="player-container-spacer"></div>
-
-      <div id="player5" class="player-container-row" onclick="changeActivePlayer(4)">
-        <div class="player-container-row-player-details">
-          <div class="player-container-row-player-details-name"></div>
-          <div class="player-container-row-player-details-score"></div>
-        </div>
-      </div>
-
-      <div class="player-container-spacer"></div>
-
-      <div id="player6" class="player-container-row" onclick="changeActivePlayer(5)">
-        <div class="player-container-row-player-details">
-          <div class="player-container-row-player-details-name"></div>
-          <div class="player-container-row-player-details-score"></div>
-        </div>
-      </div>
-
-      <div class="player-container-spacer"></div>
-
-      <div id="player7" class="player-container-row" onclick="changeActivePlayer(6)">
-        <div class="player-container-row-player-details">
-          <div class="player-container-row-player-details-name"></div>
-          <div class="player-container-row-player-details-score"></div>
-        </div>
-      </div>
-
-      <div class="player-container-spacer"></div>
-
-      <div id="player8" class="player-container-row" onclick="changeActivePlayer(7)">
-        <div class="player-container-row-player-details">
-          <div class="player-container-row-player-details-name"></div>
-          <div class="player-container-row-player-details-score"></div>
-        </div>
-      </div>
-
-      <div class="player-container-spacer"></div>
+      <div id="lastSpacer" class="player-container-spacer"></div>
     </div>
 
     <div class="score-calculator">
@@ -160,6 +205,13 @@
         0
       </div>
       <div class="simple-keyboard"></div>
+    </div>
+
+    <div class="rotate-device-container">
+      <div class="device"></div>
+      <div class="rotate-device-copy">
+        please rotate your device
+      </div>
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/simple-keyboard@latest/build/index.js"></script>
